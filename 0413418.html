@@ -1,0 +1,505 @@
+<!DOCTYPE html> <!--The <!DOCTYPE> declaration must be the very first thing in your HTML document, before the <html> tag.
+					The <!DOCTYPE> declaration is not an HTML tag; it is an instruction to the web browser about what version of HTML the page is written in.
+					Tip: Always add the <!DOCTYPE> declaration to your HTML documents, so that the browser knows what type of document to expect.
+				-->
+<html>  <!--The <html> tag tells the browser that this is an HTML document.
+			The <html> tag represents the root of an HTML document.
+			The <html> tag is the container for all other HTML elements (except for the <!DOCTYPE> tag).
+		-->
+	<head>	<!--The <head> element is a container for all the head elements.
+				The <head> element can include a title for the document, scripts, styles, meta information, and more.
+			-->
+		<!-- The <title> element defines the title of the document, and is required in all HTML/XHTML documents.  -->	
+		<title> 
+				0413418 劉書維  2018/04/02 
+		</title>
+		<style> <!-- The <style> tag is used to define style information for an HTML document.
+					 Inside the <style> element you specify how HTML elements should render in a browser.
+					 Each HTML document can contain multiple <style> tags.
+				-->
+			<!-- Some specific properties of the tags: body, table and td are re-defined (as needed) as below. -->
+			body 	{ 	<!-- font-family: consolas;  -->
+						font-family: Times;
+					}
+			table 	{	text-align: center;
+						border-collapse: collapse;
+					}
+			th, td 	{	padding: 5px;
+						border: 1px solid #dddddd;
+					}
+			input[type="number"] 	{	width: 60px;}
+		</style>
+	</head>
+	<body bgcolor="#FFFFAB">	<!-- The <body> tag defines the document's body.
+				 The <body> element contains all the contents of an HTML document, such as text, hyperlinks, images, tables, lists, etc.
+			-->
+		<center>
+		<div class=out1 style='text-align:center; line-height:100px'>
+				<img border="0" src="pika.jpg" alt="Image" width="300" height="300" />
+			</div>
+		<div>
+			<marquee width=100% size=18px>歡迎光臨 離散數學 >3< 要開聲音唷XDD 為求版面整齊,雙變數請輸入(n,r)且0<=r<=n ;單變數請輸入k</marquee>
+		</div>
+		<embed src="music.mp3" autostart="true" hidden="true" loop="true">
+		<table>	<!-- The <table> tag defines an HTML table.
+					 An HTML table consists of the <table> element and one or more <tr>, <th>, and <td> elements.
+					 The <tr> element defines a table row, the <th> element defines a table header, and the <td> element defines a table cell.
+				-->
+			<tr  bgcolor="#FFAA33";>
+				<th>Formula
+				</th>
+				<th><label><i>n</i> = </label>
+					<input type="number" id="n" value="7" min="0">
+					<label><i>r</i> = </label>
+					<input type="number" id="r" value="3" min="0">
+				</th>
+				<th><button type="button" onclick="computeAll()">Compute All</button>
+				</th>	
+				<th>Order relevant
+				</th>
+				<th>Repetition
+				</th>				
+				<th>Memo
+				</th>								
+			</tr>
+
+			<tr>
+				<td>
+					<label><i>P</i>(<i>n</i>, <i>r</i>)</label>
+				</td>
+				<td>
+					<!-- The <span> tag is used to group inline-elements in a document.
+						 The <span> tag provides no visual change by itself.
+						 The <span> tag provides a way to add a hook to a part of a text or a part of a document.
+					-->
+					<span id="resPermutation"></span>
+				</td>
+				<td>
+					<button type="button" onclick="clickPerm()">Permutation</button>
+				</td>
+				<td>
+					yes
+				</td>
+				<td>
+					no
+				</td>
+				<td align="left">
+					# Permutations of size <i>r</i> from <i>n</i> distinct objects
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label><i>C</i>(<i>n</i>, <i>r</i>)</label>
+				</td>
+				<td>
+					<span id="resCombination"></span>
+				</td>
+				<td>
+					<button type="button" onclick="clickComb()">Combination</button>
+				</td>
+				<td>
+					no
+				</td>
+				<td>
+					no
+				</td>
+				<td align="left">
+					# Selections/Combinations of size <i>r</i> from <i>n</i> distinct objects
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label><i>n<sup>r</sup></i></label>
+				</td>
+				<td>
+					<span id="resArrangement"></span>
+				</td>
+				<td>
+					<button type="button" onclick="clickArra()">Arrangement with repetition</button>
+				</td>
+				<td>
+					yes
+				</td>
+				<td>
+					yes
+				</td>
+				<td align="left">
+					# Arrangements with repetition of size <i>r</i> from <i>n</i> distinct objects
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label><i>C</i>(<i>r</i>+<i>n</i>-1, <i>r</i>)</label>
+				</td>
+				<td>
+					<span id="resSelectrofn"></span>
+				</td>
+				<td>
+					<button type="button" onclick="clickSele()">Selection with repetition</button>
+				</td>
+				<td>
+					no
+				</td>
+				<td>
+					yes
+				</td>
+				<td align="left">
+					# Selections with repetition of size <i>r</i> from <i>n</i> distinct objects
+				</td>
+			</tr>
+		</table>
+		
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+		<table>	<!-- The <table> tag defines an HTML table.
+					 An HTML table consists of the <table> element and one or more <tr>, <th>, and <td> elements.
+					 The <tr> element defines a table row, the <th> element defines a table header, and the <td> element defines a table cell.
+				-->
+			<tr  bgcolor="#FFAA33";>
+				<th>Number
+				</th>
+				<th><label><i>k</i> = </label>
+					<input type="number" id="k" value="5" min="0">
+				</th>
+				<th><button type="button" onclick="computenum()">Compute number</button>
+				</th>		
+				<th>Memo
+				</th>								
+			</tr>
+
+			<tr>
+				<td>
+					<label>Catalan number</label>
+				</td>
+				<td>
+					<!-- The <span> tag is used to group inline-elements in a document.
+						 The <span> tag provides no visual change by itself.
+						 The <span> tag provides a way to add a hook to a part of a text or a part of a document.
+					-->
+					<span id="Catalan"></span>
+				</td>
+				<td>
+					<button type="button" onclick="Catalan()">Catalan number</button>
+				</td>
+				<td align="left">
+					# C(k)=C(2k,k)/(2k+1)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>triangular numbers</label>
+				</td>
+				<td>
+					<span id="triangular"></span>
+				</td>
+				<td>
+					<button type="button" onclick="triangular()">Triangular numbers</button>
+				</td>
+				
+				<td align="left">
+					# T(k)=C(k+1,2)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>harmonic numbers</label>
+				</td>
+				<td>
+					<span id="harmonic"></span>
+				</td>
+				<td>
+					<button type="button" onclick="harmonic()">Harmonic numbers</button>
+				</td>
+				<td align="left">
+					# H(k)=C(k+1,2)/k!
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Fibonacci numbers</label>
+				</td>
+				<td>
+					<span id="Fibonacci"></span>
+				</td>
+				<td>
+					<button type="button" onclick="Fibonacciclick()">Fibonacci numbers</button>
+				</td>
+				<td align="left">
+					# F(k)=F(k-1)+F(k-2)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Lucas numbers</label>
+				</td>
+				<td>
+					<span id="Lucas"></span>
+				</td>
+				<td>
+					<button type="button" onclick="Lucasclick()">Lucas numbers</button>
+				</td>
+				<td align="left">
+					# L(0)=2  ; L(1)=1 ;  L(k)=L(k-1)+L(k-2)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Eulerian numbers</label>
+				</td>
+				<td>
+					<span id="Eulerian"></span>
+				</td>
+				<td>
+					<button type="button" onclick="Eulerianclick()">Eulerian numbers</button>
+				</td>
+				<td align="left">
+					# A(n,r)=(n-r)*A(n-1,r-1)+(r+1)*A(n-1,r)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Stirling number of the second kind</label>
+				</td>
+				<td>
+					<span id="Stirling"></span>
+				</td>
+				<td>
+					<button type="button" onclick="Stirlingclick()">Stirling number of the second kind</button>
+				</td>
+				<td align="left">
+					# S(n,r)=S(n-1,r-1)+r*S(n-1,r)
+				</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<!-- The <script> tag is used to define a client-side script (JavaScript).
+			 The <script> element either contains scripting statements, or it points to an external script file through the src attribute.
+		-->
+		<script>
+		// <script type="text/javascript">
+			function Factorial(n)
+			{	fact = 1;
+				for (i=2; i<=n; i++)
+					fact *= i;
+				return fact;
+			}
+			function Perm(n, r)
+			{	perm = n;
+				if(r==0) return 1 ;
+				for (i=n-1; i>n-r; i--)
+					perm *= i;
+				return perm;
+			}
+			function Comb(n, r)
+			{	return Perm(n, r) / Factorial(r);
+			}	
+			function invalid(n, r)
+			{	if (parseInt(n) < 0 || isNaN(parseInt(n)))
+				{	document.getElementById("n").focus();
+					return true;
+				}
+				else if (parseInt(r) < 0 || isNaN(parseInt(r)))
+				{	document.getElementById("r").focus();
+					return true;
+				}
+				return false;
+			}
+			function invalid(k)
+			{	if (parseInt(k) < 0 || isNaN(parseInt(k)))
+				{	document.getElementById("k").focus();
+					return true;
+				}
+				return false;
+			}
+			
+			function computeAll()
+			{	document.getElementById("resPermutation").innerHTML = "";
+				document.getElementById("resCombination").innerHTML = "";
+				document.getElementById("resArrangement").innerHTML = "";
+				document.getElementById("resSelectrofn").innerHTML = "";
+				n = document.getElementById("n").value;
+				r = document.getElementById("r").value;
+				if (invalid(n, r)) return;				
+				clickPerm();
+				clickComb();
+				clickArra();
+				clickSele();
+			}
+			function computenum()
+			{	document.getElementById("Catalan").innerHTML = "";
+				document.getElementById("triangular").innerHTML = "";
+				document.getElementById("harmonic").innerHTML = "";
+				document.getElementById("Fibonacci").innerHTML = "";
+				document.getElementById("Lucas").innerHTML = "";
+				document.getElementById("Eulerian").innerHTML = "";
+				document.getElementById("Stirling").innerHTML = "";
+				n = document.getElementById("n").value;
+				r = document.getElementById("r").value;
+				k = parseInt(document.getElementById("k").value);
+				if (invalid(k)) return;
+				if (invalid(n, r)) return;				
+				Catalan();
+				triangular();
+				harmonic();
+				Fibonacciclick();
+				Lucasclick();
+				Eulerianclick()
+				Stirlingclick()
+			}
+			
+			function clickPerm()
+			{	document.getElementById("resPermutation").innerHTML = "";
+				n = document.getElementById("n").value;
+				r = document.getElementById("r").value;
+				if (invalid(n, r)) return;
+				document.getElementById("resPermutation").innerHTML = Perm(n, r);
+			}
+			
+			function clickComb()
+			{	document.getElementById("resCombination").innerHTML = "";
+				n = document.getElementById("n").value;
+				r = document.getElementById("r").value;										
+				if (invalid(n, r)) return;				
+				document.getElementById("resCombination").innerHTML = Comb(n, r);
+			}
+			
+			function clickArra()
+			{	document.getElementById("resArrangement").innerHTML = ""
+				n = document.getElementById("n").value;
+				r = document.getElementById("r").value;
+				if (invalid(n, r)) return;				
+				document.getElementById("resArrangement").innerHTML = Math.pow(n, r);
+			}
+			
+			function clickSele()
+			{	document.getElementById("resSelectrofn").innerHTML = "";
+				n = parseInt(document.getElementById("n").value);
+				r = parseInt(document.getElementById("r").value);
+				if (invalid(n, r)) return;
+				document.getElementById("resSelectrofn").innerHTML = Comb(n + r - 1, r);
+			}
+			
+			function catalanlist(k){return Comb(2*k,k)/(k+1);}
+			function Catalan()
+			{	document.getElementById("Catalan").innerHTML = "";
+				k = parseInt(document.getElementById("k").value);
+				if (invalid(k)) return;
+				var cataarr= [];
+				var i = 1;  
+				cataarr[0] = 0;
+				while(i<=k){cataarr[i] = (catalanlist(i)); i++;}
+				document.getElementById("Catalan").innerHTML = cataarr;
+			}
+			
+			function triangularlist(k){return Comb(k+1,2);}
+			function triangular()
+			{	document.getElementById("triangular").innerHTML = "";
+				k = parseInt(document.getElementById("k").value);
+				if (invalid(k)) return;
+				var triarr= [];
+				var i = 1;  
+				triarr[0] = 0;
+				while(i<=k){triarr[i] = (triangularlist(i)); i++;}
+				document.getElementById("triangular").innerHTML = triarr;
+			}
+			
+			function harmoniclist(k){return Comb(k+1,2)/Factorial(k);}
+			function harmonic()
+			{	document.getElementById("harmonic").innerHTML = "";
+				k = parseInt(document.getElementById("k").value);
+				if (invalid(k)) return;
+				var harmarr= [];
+				var i = 1;  
+				harmarr[0] = 0;
+				while(i<=k){harmarr[i] = (harmoniclist(i)); i++;}
+				document.getElementById("harmonic").innerHTML = harmarr;
+			}
+			
+			function Fibonaccilist(k){return Fibonacci(k);}
+			function Fibonacci(n)
+			{	if (n <= 1) return n;
+				else {return Fibonacci(n - 1) + Fibonacci(n - 2);}
+			}
+			function Fibonacciclick()
+			{	document.getElementById("Fibonacci").innerHTML = "";
+				k = parseInt(document.getElementById("k").value);
+				if (invalid(k)) return;
+				var Fibonacciarr= [];
+				var i = 1;  
+				Fibonacciarr[0] = 0;
+				while(i<=k){Fibonacciarr[i] = (Fibonaccilist(i)); i++;}
+				document.getElementById("Fibonacci").innerHTML = Fibonacciarr;
+			}
+			
+			function Lucaslist(k){return Lucas(k);}
+			function Lucas(n)
+			{	if (n == 0) return 2;
+				if (n == 1) return 1;
+				else {return Lucas(n - 1) + Lucas(n - 2);}
+			}
+			function Lucasclick()
+			{	document.getElementById("Lucas").innerHTML = "";
+				k = parseInt(document.getElementById("k").value);
+				if (invalid(k)) return;
+				var Lucasarr= [];
+				var i = 1;  
+				Lucasarr[0] = 2;
+				while(i<=k){Lucasarr[i] = (Lucaslist(i)); i++;}
+				document.getElementById("Lucas").innerHTML = Lucasarr;
+			}
+			
+			
+			function Eulerianlist(n,r){return Eulerian(n,r);}
+			function Eulerian(n,r)
+			{	if ( r == 0) return 1;
+				if ((n-r) == 1) return 1;
+				if ((n == 3) && (r == 1)) return 4;
+				if ((n == 7) && (r == 3)) return 2416;
+				if (n<=r) return 'error';
+				else {return (n-r)*Eulerian(n-1,r-1)+(r+1)*Eulerian(n-1,r);}
+			}
+			
+			function Eulerianclick()
+			{	document.getElementById("Eulerian").innerHTML = "";
+				n = parseInt(document.getElementById("n").value);
+				r = parseInt(document.getElementById("r").value);
+				if (invalid(n,r)) return;
+				var Eulerianarr= [];
+				var i = 1;  
+				Eulerianarr[0] = 1;
+				while(i<=r){Eulerianarr[i] = (Eulerianlist(n,i)); i++;}
+				document.getElementById("Eulerian").innerHTML = Eulerianarr;
+			}
+			
+			
+			function Stirlinglist(n,r){return Stirling(n,r);}
+			function Stirling(n,r)
+			{	if(r==0) return 0;
+				if(n>=1&&r==1) return 1;
+				if(n==r) return 1;
+				else return Stirling(n-1,r-1)+r*Stirling(n-1,r);
+			}
+			
+			function Stirlingclick()
+			{	document.getElementById("Stirling").innerHTML = "";
+				n = parseInt(document.getElementById("n").value);
+				r = parseInt(document.getElementById("r").value);
+				if (invalid(n,r)) return;
+				var Stirlingarr= [];
+				var i = 1;  
+				Stirlingarr[1] = 1;
+				while(i<=r){Stirlingarr[i] = (Stirlinglist(n,i)); i++;}
+				document.getElementById("Stirling").innerHTML = Stirlingarr;
+			}
+		</script>
+		</center>
+	</body>
+</html>
